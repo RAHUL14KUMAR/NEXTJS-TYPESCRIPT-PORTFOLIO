@@ -8,7 +8,6 @@ interface IPrarams{
 }
 
 function product({params}:{params:IPrarams}) {
-    console.log("parrams",params);
     
   return (
     <div className='p-8'>

@@ -1,16 +1,47 @@
 "use client"
-import React from 'react'
+import React,{useCallback, useState} from 'react'
 import {Rating} from '@mui/material'
+import Image from 'next/image'
+import SetQuantity from '@/app/components/products/setQuantity'
+import Button from '@/app/components/Button'
+import ProductImage from '@/app/components/products/productImage'
 
 interface productDetailsProps{
     product:any
 }
 
-export type CartProduct={
-    
+export type CartProductType={
+    id:string,
+    name:string,
+    description:string,
+    category:string,
+    brand:String,
+    selectedImg:SelectedImageType,
+    quantity:number,
+    price:number
 }
 
+export type SelectedImageType={
+    color:String,
+    colorCode:string,
+    image:string
+}
+
+
 function productDetails({product}:productDetailsProps) {
+
+    const [image,setImage]=useState(product.images[0].image)
+
+    const [cartProduct,setCartProduct]=useState<CartProductType>({
+        id:product.id,
+        name:product.name,
+        description:product.description,
+        category:product.category,
+        brand:product.brand,
+        selectedImg:{...product.images[0]},
+        quantity:1,
+        price:product.number
+    })
 
     const productRating=product.reviews.reduce((acc:number,item:any)=>item.rating+acc,0)/product.reviews.length;
 
@@ -20,9 +51,32 @@ function productDetails({product}:productDetailsProps) {
         )
     }
 
+    const handleQtyIncrease=()=>{
+        setCartProduct((prev)=>{
+            return {...prev,quantity:prev.quantity+1};
+        })
+    }
+
+    const handleQtyDecrease=()=>{
+
+        if(cartProduct.quantity!=0){
+            setCartProduct((prev)=>{
+                return {...prev,quantity:prev.quantity-1};
+            })
+        }else{
+            alert("cant make order less than zero")
+        }
+    }
+
+    const handleColorSelect=useCallback((value:SelectedImageType)=>{
+        setCartProduct((prev)=>{
+            return {...prev,selectedImg:value}
+        })
+    },[cartProduct.selectedImg])
+
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-      <div>Images</div>
+      <ProductImage cartProduct={cartProduct} product={product} handleColorSelect={handleColorSelect}/>
       <div className='flex flex-col gap-1 text-slate-500 text-sm'>
         <h2 className='text-3xl font-medium text-slate-700'>{product.name}</h2>
         <div className='flex items-center gap-2'>
@@ -46,11 +100,12 @@ function productDetails({product}:productDetailsProps) {
             {product.inStock? "In Stock":"Out Of Stock"}
         </div>
         <Horizontal/>
-        <div>color</div>
+        <SetQuantity cartProduct={cartProduct} 
+        handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
         <Horizontal/>
-        <div>quality</div>
-        <Horizontal/>
-        <div>Add To Cart</div>
+        <div className='max-w-[300px]'>
+            <Button  label="Add To Cart" onClick={()=>{}}/>
+        </div>
       </div>
     </div>
   )
