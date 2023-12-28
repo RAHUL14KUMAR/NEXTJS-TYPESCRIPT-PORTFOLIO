@@ -5,6 +5,7 @@ import Image from 'next/image'
 import SetQuantity from '@/app/components/products/setQuantity'
 import Button from '@/app/components/Button'
 import ProductImage from '@/app/components/products/productImage'
+import { useCart } from '@/hooks/useCart'
 
 interface productDetailsProps{
     product:any
@@ -30,7 +31,10 @@ export type SelectedImageType={
 
 function productDetails({product}:productDetailsProps) {
 
-    const [image,setImage]=useState(product.images[0].image)
+    const {cartTotalQty,handleAddProductToCart,cartProducts}=useCart
+    ();
+
+    console.log("call from hook side ",cartProducts)
 
     const [cartProduct,setCartProduct]=useState<CartProductType>({
         id:product.id,
@@ -104,7 +108,7 @@ function productDetails({product}:productDetailsProps) {
         handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
         <Horizontal/>
         <div className='max-w-[300px]'>
-            <Button  label="Add To Cart" onClick={()=>{}}/>
+            <Button  label="Add To Cart" onClick={()=>handleAddProductToCart(cartProduct)}/>
         </div>
       </div>
     </div>

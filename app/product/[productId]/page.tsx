@@ -1,4 +1,4 @@
-
+"use client"
 import Container from '@/app/components/Container';
 import { prod } from '@/utils/prod';
 import ProductDetails from './productDetails';

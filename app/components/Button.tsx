@@ -14,7 +14,7 @@ interface ButtonProps{
 
 function Button({label,disabled,outline,small,custom,icon:Icon,onClick}:ButtonProps) {
   return (
-    <button disabled={disabled} className={`
+    <button disabled={disabled} onClick={onClick} className={`
         disbled:opacity-70
         disabled:cursor-not-allowed
         rounded-md
