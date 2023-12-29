@@ -6,8 +6,8 @@ interface HeadingProps{
 
 function Header({title,center}:HeadingProps) {
   return (
-    <div>
-      
+    <div className='text-center'>
+      <h1 className='font-bold text-2xl'>{title}</h1>
     </div>
   )
 }

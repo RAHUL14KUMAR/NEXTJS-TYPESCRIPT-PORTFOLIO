@@ -1,15 +1,17 @@
 "use client"
 import Container from '@/app/components/Container';
-import { prod } from '@/utils/prod';
 import ProductDetails from './productDetails';
 import React from 'react'
 import ListRating from './ListRating';
+import { products } from '@/utils/product';
 
 interface IPrarams{
   productId?:string,
 }
 
 function product({params}:{params:IPrarams}) {
+
+  const prod=products.find((item)=>item.id===params.productId)
     
   return (
     <div className='p-8'>

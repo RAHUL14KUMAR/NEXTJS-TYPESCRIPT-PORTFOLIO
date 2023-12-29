@@ -1,9 +1,13 @@
+import  Container  from '../components/Container'
 import React from 'react'
+import CartClient from './CartClient'
 
 function Cart() {
   return (
-    <div>
-      cart page
+    <div className='pt-8'>
+      <Container>
+        <CartClient/>
+      </Container>
     </div>
   )
 }

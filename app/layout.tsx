@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer'
 import { StateProvider } from '@/stateProvider'
 import reducer,{initialState} from '@/reducer'
 import CartProvider from '@/providers/CartProvider'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`text-slate-700`}>
+        <Toaster toastOptions={{
+          style:{
+            background:"rgb(51,65,85)",
+            color:'#fff'
+          }
+        }} />
         <CartProvider>
           <div className='flex flex-col min-h-screen'>
             <NavBar/>
