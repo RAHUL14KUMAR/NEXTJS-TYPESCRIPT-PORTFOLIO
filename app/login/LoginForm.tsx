@@ -1,14 +1,30 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Header from '../components/Header'
 import Input from '../components/inputs/Input'
 import { useForm,FieldValues,SubmitHandler } from 'react-hook-form';
 import Button from '../components/Button'
 import Link from 'next/link';
 import { AiOutlineGoogle } from 'react-icons/ai';
+import {signIn} from 'next-auth/react'
+import toast from 'react-hot-toast'
+import { SafeUser } from '@/types'
 
-function LoginForm() {
+interface prop{
+    currentUser:SafeUser|null
+}
+function LoginForm({currentUser}:prop) {
+
+    const router=useRouter();
     const [isLoading,setIsLoading]=useState(false);
+
+    useEffect(()=>{
+        if(currentUser){
+            router.push('/cart')
+            router.refresh();
+        }
+    },[])
     const{register,handleSubmit,formState:{errors}}=useForm<FieldValues>({
         defaultValues:{
             email:"",
@@ -16,8 +32,32 @@ function LoginForm() {
         }
     })
 
-    const onSubmit:SubmitHandler<FieldValues>=()=>{
+    const onSubmit:SubmitHandler<FieldValues>=(data)=>{
         setIsLoading(true);
+        console.log("lodin",data)
+
+        signIn('credentials',{
+            ...data,
+            redirect:false
+        }).then((callback)=>{
+            if(callback?.ok){
+                router.push('/cart');
+                router.refresh();
+                toast.success("Logged In")
+            }
+
+            if(callback?.error){
+                toast.error(callback.error)
+            }
+        }).catch(()=>toast.error('something went wrong'))
+        .finally(()=>{
+            setIsLoading(false)
+        })
+
+    }
+
+    if(currentUser){
+        return <p className='text-center'>Logged In. Redirecting...</p>
     }
   return (
     <>
