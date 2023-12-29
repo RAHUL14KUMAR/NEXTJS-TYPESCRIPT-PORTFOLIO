@@ -3,8 +3,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './components/nav/NavBar'
 import Footer from './components/footer/Footer'
-import { StateProvider } from '@/stateProvider'
-import reducer,{initialState} from '@/reducer'
 import CartProvider from '@/providers/CartProvider'
 import { Toaster } from 'react-hot-toast'
 

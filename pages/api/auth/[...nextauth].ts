@@ -6,7 +6,7 @@ import prisma from '@/libs/prismadb'
 import bcrypt from 'bcrypt'
 
 export const authOptions:AuthOptions={
-    adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -55,8 +55,8 @@ export const authOptions:AuthOptions={
   debug:process.env.NODE_ENV==='development',
   session:{
     strategy:'jwt',
-  }
-  ,secret:'process.env.NEXT_SECRET'
+  },
+  secret:'process.env.NEXT_SECRET'
 }
 
 export default NextAuth(authOptions)

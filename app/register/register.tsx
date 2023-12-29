@@ -66,7 +66,7 @@ function register({currentUser}:prop) {
   return (
     <>
     <Header title='signup from e-shop'/>
-    <Button outline label='Signup With Google' icon={AiOutlineGoogle} onClick={()=>{}} />
+    <Button outline label='Signup With Google' icon={AiOutlineGoogle} onClick={()=>{signIn("google")}} />
      <hr className='bg-slate-500 w-full h-px'/>
     <Input id="name" label='Name' disabled={isLoading} register={register} errors={errors} required/>
     <Input id="email" label='EMail' disabled={isLoading} register={register} errors={errors} required/>

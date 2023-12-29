@@ -62,7 +62,7 @@ function LoginForm({currentUser}:prop) {
   return (
     <>
     <Header title='signup from e-shop'/>
-    <Button outline label='Continue With Google' icon={AiOutlineGoogle} onClick={()=>{}} />
+    <Button outline label='Continue With Google' icon={AiOutlineGoogle} onClick={()=>{signIn("google")}} />
      <hr className='bg-slate-500 w-full h-px'/>
     <Input id="email" label='EMail' disabled={isLoading} register={register} errors={errors} required/>
     <Input id="password" label='Password' disabled={isLoading} register={register} errors={errors} required type="password"/>
